@@ -283,23 +283,28 @@ Request Body:
 ## payment_sessions
 
 ```sql
-CREATE TABLE payment_sessions (
-    id BIGSERIAL PRIMARY KEY,
-    payment_session_id VARCHAR(255) UNIQUE,
-    status VARCHAR(50),
-    created_at TIMESTAMP
+CREATE TABLE IF NOT EXISTS projects.payment_sessions
+(
+    id integer NOT NULL DEFAULT nextval('projects.payment_sessions_id_seq'::regclass),
+    payment_session_id character varying(39) COLLATE pg_catalog."default" NOT NULL,
+    status character varying(12) COLLATE pg_catalog."default" NOT NULL,
+    created_at timestamp without time zone,
+    CONSTRAINT payment_sessions_pkey PRIMARY KEY (id),
+    CONSTRAINT payment_sessions_payment_session_id_key UNIQUE (payment_session_id)
 );
 ```
 
 ## payments
 
 ```sql
-CREATE TABLE payments (
-    id BIGSERIAL PRIMARY KEY,
-    transaction_id VARCHAR(255),
-    payment_session_id VARCHAR(255),
-    amount DECIMAL,
-    receiver VARCHAR(255)
+CREATE TABLE IF NOT EXISTS projects.payments
+(
+    id integer NOT NULL DEFAULT nextval('projects.payments_id_seq'::regclass),
+    transaction_id character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    receiver character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    amount numeric(6,2),
+    payment_session_id character varying(39) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT payments_pkey PRIMARY KEY (id)
 );
 ```
 
@@ -344,26 +349,13 @@ which stores objects as JSON.
 
 ```java
 @Bean
-public RedisTemplate<String, Object> redisTemplate(
-        RedisConnectionFactory connectionFactory) {
-
-    RedisTemplate<String, Object> template =
-            new RedisTemplate<>();
-
+public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+    RedisTemplate<String, Object> template = new RedisTemplate<>();
     template.setConnectionFactory(connectionFactory);
-
-    template.setKeySerializer(
-            new StringRedisSerializer());
-
-    template.setValueSerializer(
-            new GenericJackson2JsonRedisSerializer());
-
-    template.setHashKeySerializer(
-            new StringRedisSerializer());
-
-    template.setHashValueSerializer(
-            new GenericJackson2JsonRedisSerializer());
-
+    template.setKeySerializer(new StringRedisSerializer());
+    template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+    template.setHashKeySerializer(new StringRedisSerializer());
+    template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
     return template;
 }
 ```

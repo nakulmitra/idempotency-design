@@ -1,0 +1,77 @@
+package com.devportal.paymentsystem;
+
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+
+@SpringBootApplication
+public class PaymentsystemApplication {
+	
+	@Value("${spring.datasource.url}")
+	private String dataSourceUrl;
+
+	@Value("${spring.datasource.username}")
+	private String dataSourceUserName;
+
+	@Value("${spring.datasource.password}")
+	private String dataSourceUserKey;
+
+	@Value("${spring.datasource.driver-class-name}")
+	private String datasourceRead;
+
+	public static void main(String[] args) {
+		SpringApplication.run(PaymentsystemApplication.class, args);
+	}
+	
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
+		template.setConnectionFactory(connectionFactory);
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+		return template;
+	}
+
+	@Bean(name = "entityManagerFactory")
+	public LocalSessionFactoryBean sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setPackagesToScan("com.devportal");
+		sessionFactory.setDataSource(dataSource());
+		sessionFactory.setHibernateProperties(hibernateProperties());
+		return sessionFactory;
+	}
+
+	private final Properties hibernateProperties() {
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		hibernateProperties.setProperty("hibernate.allow_update_outside_transation", "true");
+		return hibernateProperties;
+	}
+
+	@Bean
+	@Primary
+	public DataSource dataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName(datasourceRead);
+		dataSource.setUrl(dataSourceUrl);
+		dataSource.setUsername(dataSourceUserName);
+		dataSource.setPassword(dataSourceUserKey);
+		return dataSource;
+	}
+
+
+}
