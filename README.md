@@ -509,7 +509,7 @@ Possible enhancements:
 
 # Conclusion
 
-This project demonstrates how production-grade payment systems:
+This project demonstrates how production grade payment systems:
 
 * Prevent duplicate processing
 * Handle retries safely
@@ -524,3 +524,8 @@ This implementation provides a strong foundation for understanding:
 * Payment system design
 * Microservices concurrency handling
 * Idempotent API design
+
+## Support
+If this helped you, consider supporting my tutorials
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-yellow?logo=buymeacoffee)](https://buymeacoffee.com/nakulmitra)
