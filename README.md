@@ -19,6 +19,8 @@ The implementation focuses on:
 * Race condition prevention
 * Production-grade backend design
 
+[![](https://markdown-videos-api.jorgenkh.no/youtube/8HLXQiKsW-U)](https://youtu.be/8HLXQiKsW-U)
+
 # Why Idempotency Matters
 
 In distributed systems, duplicate requests are extremely common.
