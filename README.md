@@ -95,9 +95,7 @@ Suppose:
 
 Backend may incorrectly reject legitimate payment.
 
-This is why:
-
-> Idempotency requires operation identity, not payload similarity.
+This is why `Idempotency requires operation identity, not payload similarity.`
 
 # Final Architecture
 
