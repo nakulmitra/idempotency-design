@@ -18,8 +18,9 @@ public class RedisLockService {
 	}
 
 	public void releaseLock(String lockKey, String requestId) {
-		String currentValue = redisTemplate.opsForValue().get(lockKey);
-		if (requestId.equals(currentValue)) {
+		String value = redisTemplate.opsForValue().get(lockKey);
+		
+		if(requestId.equals(value)) {
 			redisTemplate.delete(lockKey);
 		}
 	}

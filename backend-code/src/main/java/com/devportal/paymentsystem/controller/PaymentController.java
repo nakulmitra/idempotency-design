@@ -28,7 +28,8 @@ public class PaymentController {
 	public PaymentResponse makePayment(@RequestHeader("Idempotency-Key") String idempotencyKey,
 			@RequestBody PaymentRequest request) {
 		try {
-			return service.processPayment(request, idempotencyKey);
+//			return service.processPayment(request, idempotencyKey);
+			return service.processPaymentWithLockMech(request, idempotencyKey);
 		} catch (Exception e) {
 			System.err.println("Error during processing payment: " + e.getMessage());
 			return new PaymentResponse(e.getMessage());
