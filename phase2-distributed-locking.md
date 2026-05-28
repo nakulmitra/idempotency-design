@@ -10,6 +10,8 @@ In Part 1 of this project, we implemented an Idempotent Payment API using:
 
 The goal was to prevent duplicate payment processing when the same request is retried multiple times.
 
+[![](https://markdown-videos-api.jorgenkh.no/youtube/IQR5AogKX8o)](https://youtu.be/IQR5AogKX8o)
+
 The implementation worked correctly for retry scenarios:
 
 ```text
@@ -653,7 +655,7 @@ if (!lockAcquired) {
          │ Response Missing          │
          │                           │
          ▼                           ▼
-       Wait 500ms             Response Found
+       Wait 1000ms             Response Found
          │                           │
          └─────────────►─────────────┘
                        │
