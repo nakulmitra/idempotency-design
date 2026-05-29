@@ -517,7 +517,7 @@ This implementation provides a strong foundation for understanding:
 * Microservices concurrency handling
 * Idempotent API design
 
-[Next Implementation using Distributed Locking](https://github.com/nakulmitra/database-postgresql/blob/master/notes/introduction-to-databases.md)
+> Next: [Implementation using Distributed Locking](https://github.com/nakulmitra/database-postgresql/blob/master/notes/introduction-to-databases.md)
 
 ## Support
 If this helped you, consider supporting my tutorials
