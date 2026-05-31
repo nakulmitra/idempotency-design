@@ -795,3 +795,5 @@ Business State Validation
 ```
 
 This combination forms the foundation of many modern payment platforms, order processing systems, and distributed applications.
+
+> Previous: [Build Production-Ready Idempotent APIs using Spring Boot, Redis & PostgreSQL](https://github.com/nakulmitra/idempotency-design/blob/master/README.md)
