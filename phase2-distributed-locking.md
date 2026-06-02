@@ -354,9 +354,7 @@ If Thread A later executes:
 redisTemplate.delete(lockKey);
 ```
 
-it may accidentally delete Thread B's lock.
-
-To avoid this, each lock stores an owner identifier.
+it may accidentally delete Thread B's lock. To avoid this, each lock stores an owner identifier.
 
 Example:
 
@@ -383,9 +381,7 @@ GET lock
 DELETE lock
 ```
 
-in two separate operations.
-
-Although sufficient for learning purposes, it is not fully atomic.
+in two separate operations. Although sufficient for learning purposes, it is not fully atomic.
 
 A production-grade implementation usually uses:
 
