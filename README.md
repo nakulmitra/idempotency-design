@@ -285,7 +285,7 @@ Request Body:
 ```sql
 CREATE TABLE IF NOT EXISTS projects.payment_sessions
 (
-    id integer NOT NULL DEFAULT nextval('projects.payment_sessions_id_seq'::regclass),
+    id serial,
     payment_session_id character varying(39) COLLATE pg_catalog."default" NOT NULL,
     status character varying(12) COLLATE pg_catalog."default" NOT NULL,
     created_at timestamp without time zone,
@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS projects.payment_sessions
 ```sql
 CREATE TABLE IF NOT EXISTS projects.payments
 (
-    id integer NOT NULL DEFAULT nextval('projects.payments_id_seq'::regclass),
+    id serial,
     transaction_id character varying(36) COLLATE pg_catalog."default" NOT NULL,
     receiver character varying(20) COLLATE pg_catalog."default" NOT NULL,
     amount numeric(6,2),
